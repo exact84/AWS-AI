@@ -1,0 +1,68 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 32px;
+}
+h1 {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+textarea {
+  width: 100%;
+  min-height: 60px;
+  font-size: 1rem;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+button {
+  margin-top: 12px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #0057b8;
+  color: #fff;
+  cursor: pointer;
+}
+button:disabled {
+  background: #aaa;
+}
+.answer {
+  margin-top: 2rem;
+  background: #f0f4fa;
+  padding: 16px;
+  border-radius: 6px;
+}
+.sources {
+  margin-top: 1rem;
+  font-size: 0.95em;
+}
+.source-block {
+  margin-bottom: 1em;
+  padding: 8px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+.source-title {
+  font-weight: bold;
+  color: #0057b8;
+}
+.loading {
+  color: #0057b8;
+  margin-top: 1rem;
+}
+.error {
+  color: #c00;
+  margin-top: 1rem;
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museum QA (RAG Demo)</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Museum QA (RAG Demo)</h1>
+      <form id="qa-form">
+        <label for="question">Enter your question:</label><br />
+        <textarea
+          id="question"
+          required
+          placeholder="e.g. Show me American paintings from the 19th century"
+        ></textarea
+        ><br />
+        <button type="submit">Ask</button>
+      </form>
+      <div class="loading" id="loading" style="display: none">Loading...</div>
+      <div class="error" id="error" style="display: none"></div>
+      <div class="answer" id="answer" style="display: none"></div>
+      <div class="sources" id="sources" style="display: none"></div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
