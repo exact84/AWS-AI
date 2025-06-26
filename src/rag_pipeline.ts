@@ -23,9 +23,51 @@ async function getExtractor() {
 }
 
 async function embedText(text: string): Promise<number[]> {
+  if (typeof text !== 'string') {
+    throw new Error('embedText: input is not a string');
+  }
+  if (text.length === 0) {
+    return [];
+  }
   const extractor = await getExtractor();
   const output = await extractor(text);
-  return output.data[0];
+  let embedding: any = output.data;
+  const DIM = 384; // all-MiniLM-L6-v2 output dim
+
+  if (embedding instanceof Float32Array && embedding.length % DIM === 0) {
+    const tokens = embedding.length / DIM;
+    const arr = Array.from(embedding);
+    const pooled = new Array(DIM).fill(0);
+    for (let i = 0; i < tokens; i++) {
+      for (let j = 0; j < DIM; j++) {
+        pooled[j] += arr[i * DIM + j];
+      }
+    }
+    for (let j = 0; j < DIM; j++) {
+      pooled[j] /= tokens;
+    }
+    embedding = pooled;
+  } else if (Array.isArray(embedding) && Array.isArray(embedding[0])) {
+    const arr = embedding as ArrayLike<ArrayLike<number> | Float32Array>;
+    const dim = arr[0].length;
+    const sum = new Array(dim).fill(0);
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < dim; j++) {
+        sum[j] += arr[i][j];
+      }
+      count++;
+    }
+    embedding = sum.map((x) => x / count);
+  } else if (Array.isArray(embedding) && typeof embedding[0] === 'number') {
+    embedding = embedding as number[];
+  } else {
+    throw new Error('embedText: Unexpected embedding format');
+  }
+  if (!Array.isArray(embedding) || embedding.some((x) => typeof x !== 'number' || isNaN(x))) {
+    throw new Error('embedText: Invalid embedding format after conversion');
+  }
+  return embedding;
 }
 
 async function getCollection() {
