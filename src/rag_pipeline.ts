@@ -1,7 +1,6 @@
 import { HfInference } from '@huggingface/inference';
 import { ChromaClient, IncludeEnum } from 'chromadb';
 import dotenv from 'dotenv';
-import fetch from 'node-fetch';
 import { pipeline } from '@xenova/transformers';
 
 dotenv.config();
@@ -10,8 +9,6 @@ const hf = new HfInference(process.env.HF_API_TOKEN);
 const chroma = new ChromaClient();
 const COLLECTION_NAME = 'artsmia_chunks';
 
-const HF_API_TOKEN = process.env.HF_API_TOKEN;
-const EMBED_MODEL = 'BAAI/bge-small-en-v1.5';
 const GEN_MODEL = 'mistralai/Mixtral-8x7B-Instruct-v0.1';
 
 let extractor: any;

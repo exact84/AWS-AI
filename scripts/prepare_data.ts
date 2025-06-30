@@ -1,19 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { HfInference } from '@huggingface/inference';
 import dotenv from 'dotenv';
 import { encoding_for_model } from 'tiktoken';
 import { ChromaClient } from 'chromadb';
-import fetch from 'node-fetch';
 import { pipeline } from '@xenova/transformers';
 
 dotenv.config();
-
-const hf = new HfInference(process.env.HF_API_TOKEN);
-
-const EMBED_MODELS = ['sentence-transformers/all-MiniLM-L6-v2'];
-const EMBED_MODEL = 'BAAI/bge-small-en-v1.5';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,7 +27,7 @@ interface ArtObject {
 
 const CHUNK_SIZE = 128;
 const CHUNK_OVERLAP = 32;
-const MODEL_NAME = 'gpt-3.5-turbo';
+const TOKENIZER_MODEL = 'gpt-3.5-turbo';
 
 const chroma = new ChromaClient();
 
@@ -124,7 +117,7 @@ function buildChunkText(obj: ArtObject): string {
 function chunkTextTiktoken(
   text: string
 ): Array<{ text: string; start: number; end: number; tokens: number }> {
-  const enc = encoding_for_model(MODEL_NAME);
+  const enc = encoding_for_model(TOKENIZER_MODEL);
   const tokens = enc.encode(text);
   const chunks: Array<{ text: string; start: number; end: number; tokens: number }> = [];
   let start = 0;

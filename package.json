@@ -2,7 +2,7 @@
   "name": "museum-rag-qa",
   "version": "1.0.0",
   "description": "RAG-powered question answering system for museum collection",
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "type": "module",
   "author": "Alexey Exact",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "node --loader ts-node/esm src/server.ts",
     "build": "tsc",
     "format": "prettier --write ."
